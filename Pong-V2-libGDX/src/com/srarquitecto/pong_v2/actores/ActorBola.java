@@ -35,6 +35,14 @@ public class ActorBola extends Actor {
 	public void draw(Batch batch, float parentAlpha) {
 		batch.draw(region, getX(), getY(), 0, 0, getWidth(), getHeight(), 1, 1, getRotation());
 	}
+	
+	@Override
+	public void act(float delta) {
+		super.act(delta);
+		setX(this.bola.position.x - anchoBola/2f);
+		setY(this.bola.position.y - altoBola/2f);
+		
+	}
 
 	//Este metodo es el encargado de crear la "bola" del Pong.
 	public void crearBola() {
@@ -57,6 +65,9 @@ public class ActorBola extends Actor {
 		this.cuerpo.createFixture(fixture);
 		
 		cuadrado.dispose();
+		
+		
+		this.cuerpo.setLinearVelocity(20f, 15f);
 	}
 
 }

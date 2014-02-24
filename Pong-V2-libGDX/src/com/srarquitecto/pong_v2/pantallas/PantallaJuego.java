@@ -30,13 +30,17 @@ public class PantallaJuego extends PantallaAbstracta {
 
 	@Override
 	public void render(float delta) {
+		//Refresco de la pantalla.
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
 		Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT);
 		
+		//Actualizamos la camara.
 		this.escena.getCamera().update();
 		
+		//Frecuencia de redresco de Box2D. Cuanto mayor sea, mayor es la precision pero menor el rendimiento.
 		this.mundo.getMundo().step(1/60f, 6, 2);
 		
+		//Permite ver las lineas y formas descritas con Box2D.
 		this.mundo.getDebugger().render(this.mundo.getMundo(), this.escena.getCamera().combined);
 		
 		this.escena.act();
@@ -46,7 +50,7 @@ public class PantallaJuego extends PantallaAbstracta {
 
 	@Override
 	public void show() {
-		this.mundo = new Mundo(new Vector2(0, -9.8f), true);
+		this.mundo = new Mundo(new Vector2(0f, 0f), true);
 		this.escena = new Stage();
 		
 		this.limites = new Limites(mundo);
