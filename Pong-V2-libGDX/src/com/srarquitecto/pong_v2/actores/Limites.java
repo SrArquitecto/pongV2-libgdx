@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.srarquitecto.pong_v2.Mundo;
+import com.srarquitecto.pong_v2.fisicas.Mundo;
 
 public class Limites extends Actor{
 
@@ -19,9 +19,17 @@ public class Limites extends Actor{
 	
 	public Limites(Mundo mundo) {
 		this.mundo = mundo;
-		this.crearLimiteInferior();
-		this.crearLimiteSuperior();
+		this.crearLimites();
 	}
+	
+	
+	private void crearLimites() {
+		this.mundo = this.mundo.crearLinea(mundo, 0f, 0f, 0, 0, Gdx.graphics.getWidth(), 0, 0, 0, 0, 1, "limiteInf");
+		this.mundo = this.mundo.crearLinea(mundo, 0f, 0f, 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, 0, 0, 1, "limiteSup");
+	}
+	
+	
+	/*
 	
 	public void crearLimiteInferior() {
 		//Definimos el cuerpo y le damos una posicion.
@@ -65,4 +73,6 @@ public class Limites extends Actor{
 		
 		this.lineaSup.dispose();
 	}
+	
+	*/
 }
