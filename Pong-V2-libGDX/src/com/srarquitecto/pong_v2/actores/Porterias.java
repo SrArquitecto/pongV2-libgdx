@@ -1,24 +1,15 @@
 package com.srarquitecto.pong_v2.actores;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.srarquitecto.pong_v2.fisicas.Cuerpos;
 import com.srarquitecto.pong_v2.fisicas.Mundo;
 
 public class Porterias extends Actor {
 
-	
-	//private Cuerpos portIzq, portDer;
 	private Mundo mundo;
-	//private BodyDef porteriaIzq, porteriaDer;
-	//private EdgeShape lineaIzq, lineaDer;
-	//private FixtureDef fixtureIzq, fixtureDer;
-	//private Body cuerpoIzq, cuerpoDer;
+	private Cuerpos porteriaIzq, porteriaDer;
 	
 	@SuppressWarnings("unused")
 	private int contadorIzq, contadorDer;
@@ -28,12 +19,14 @@ public class Porterias extends Actor {
 		this.contadorDer = 0;
 		this.contadorIzq = 0;
 		this.crearPorterias();
-		//this.crearPorteriaDer();
 	}
 	
 	private void crearPorterias() {
-		this.mundo = this.mundo.crearLinea(mundo,-32f, 0f, 0, 0, 0, Gdx.graphics.getHeight(), 0, 0, 0, 1, "porteriaIzq");
-		this.mundo = this.mundo.crearLinea(mundo,Gdx.graphics.getWidth() + 32, 0f, 0, 0, 0, Gdx.graphics.getHeight(), 0, 0, 0, 1, "porteriaDer");
+		this.porteriaIzq = new Cuerpos();
+		this.mundo = this.porteriaIzq.crearLinea(mundo, new Vector2(-32f, 0f), new Vector2(0, 0), new Vector2(0, Gdx.graphics.getHeight()), 0, 0, 0, 1, "porteriaIzq");
+		
+		this.porteriaDer = new Cuerpos();
+		this.mundo = this.porteriaDer.crearLinea(mundo, new Vector2(Gdx.graphics.getWidth() + 32, 0f), new Vector2(0, 0), new Vector2(0, Gdx.graphics.getHeight()), 0, 0, 0, 1, "porteriaDer");
 		//this.mundo = this.mundo.crearLinea(-32f, 0f, 0, 0, 0, Gdx.graphics.getHeight(), 0, 0, 0, 1, "porteriaIzq", this.mundo);
 	}
 	

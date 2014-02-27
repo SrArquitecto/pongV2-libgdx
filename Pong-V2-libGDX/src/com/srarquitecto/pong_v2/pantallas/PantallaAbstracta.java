@@ -8,8 +8,7 @@ public abstract class PantallaAbstracta implements Screen {
 	protected Pong_V2 juego;
 	
 	public PantallaAbstracta(Pong_V2 juego) {
-		this.juego = juego;
-		
+		this.juego = juego;	
 	}
 
 	@Override

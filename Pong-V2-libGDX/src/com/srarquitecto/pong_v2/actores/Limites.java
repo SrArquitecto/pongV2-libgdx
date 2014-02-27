@@ -1,21 +1,15 @@
 package com.srarquitecto.pong_v2.actores;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.srarquitecto.pong_v2.fisicas.Cuerpos;
 import com.srarquitecto.pong_v2.fisicas.Mundo;
 
 public class Limites extends Actor{
 
 	private Mundo mundo;
-	private BodyDef limiteInf, limiteSup;
-	private EdgeShape lineaInf, lineaSup;
-	private FixtureDef fixInf, fixSup;
-	private Body cuerpoInf, cuerpoSup;
+    private Cuerpos limiteInf, limiteSup;
 	
 	public Limites(Mundo mundo) {
 		this.mundo = mundo;
@@ -24,11 +18,11 @@ public class Limites extends Actor{
 	
 	
 	private void crearLimites() {
-		this.mundo = this.mundo.crearLinea(mundo, 0f, 0f, 0, 0, Gdx.graphics.getWidth(), 0, 0, 0, 0, 1, "limiteInf");
-		this.mundo = this.mundo.crearLinea(mundo, 0f, 0f, 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, 0, 0, 1, "limiteSup");
+		this.limiteInf=new Cuerpos();
+		this.mundo = this.limiteInf.crearLinea(mundo, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(Gdx.graphics.getWidth(), 0), 0, 0, 0, 1, "porteriaIzq");
+		this.limiteSup = new Cuerpos();
+		this.mundo = this.limiteSup.crearLinea(mundo, new Vector2(0f, 0f), new Vector2(0f, Gdx.graphics.getHeight()), new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()), 0, 0, 0, 1, "porteriaDer");
 	}
-	
-	
 	/*
 	
 	public void crearLimiteInferior() {

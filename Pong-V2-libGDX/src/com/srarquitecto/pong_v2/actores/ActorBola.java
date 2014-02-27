@@ -18,17 +18,14 @@ import com.srarquitecto.pong_v2.fisicas.Cuerpos;
 import com.srarquitecto.pong_v2.fisicas.Mundo;
 
 public class ActorBola extends Actor {
+
+	private Mundo mundo;
+	private Cuerpos bola;
 	
-	private Vector2 posicion;
-	private Mundo        mundo;
-	private Body         cuerpo;
-	private BodyDef      bola;
-	private FixtureDef   fixture;
-	private PolygonShape cuadrado;
 	private TextureRegion region;
-	//float x, y;
+	private Vector2 posicion;
 	
-	private Sprite spriteCuadrado;;
+	//private Sprite spriteCuadrado;
 	
 	private float altoBola  = Pong_V2.MANAGER.get("img/bola.png", Texture.class).getHeight();
 	private float anchoBola = Pong_V2.MANAGER.get("img/bola.png", Texture.class).getWidth();
@@ -43,54 +40,54 @@ public class ActorBola extends Actor {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		this.posicion = this.cuerpo.getPosition();
+		this.posicion = this.bola.getCuerpo().getPosition();
 		//this.spriteCuadrado.setPosition(this.posicion.x, this.posicion.y);
 		//this.spriteCuadrado.setOrigin(this.cuerpo.geto, originY);
 		//this.spriteCuadrado.draw(batch);
-		batch.draw(this.region, this.posicion.x, this.posicion.y, 0, 0, getWidth(), getHeight(), 1, 1, getRotation());
+		batch.draw(this.region, this.posicion.x - anchoBola/2, this.posicion.y - altoBola/2, 0, 0, getWidth(), getHeight(), 1, 1, getRotation());
 	}
 	
 	@Override
 	public void act(float delta) {
 		//super.act(delta);
 
+	/*
+		if(Gdx.input.justTouched())
+			this.bola.getCuerpo().setLinearVelocity(0f, 50f);
+		
 		if(Gdx.input.isKeyPressed(Keys.UP))
-			this.cuerpo.setLinearVelocity(0f,800f);
+			this.bola.getCuerpo().setLinearVelocity(0f,800f);
 		if(Gdx.input.isKeyPressed(Keys.DOWN))
-			this.cuerpo.setLinearVelocity(0f,-600f);
+			this.bola.getCuerpo().setLinearVelocity(0f,-600f);
 		if(Gdx.input.isKeyPressed(Keys.RIGHT))
-			this.cuerpo.setLinearVelocity(600f,0f);
+			this.bola.getCuerpo().setLinearVelocity(600f,0f);
 		if(Gdx.input.isKeyPressed(Keys.LEFT))
-			this.cuerpo.setLinearVelocity(-600f,0f);
+			this.bola.getCuerpo().setLinearVelocity(-600f,0f);
 		if(Gdx.input.isKeyPressed(Keys.LEFT) && Gdx.input.isKeyPressed(Keys.UP))
-			this.cuerpo.setLinearVelocity(-600f,600f);
+			this.bola.getCuerpo().setLinearVelocity(-600f,600f);
+			
+	*/
+		if(Gdx.input.isKeyPressed(Keys.ENTER))
+			this.bola.getCuerpo().setLinearVelocity(600f, 600f);
 
 	}
 	
-	//Este metodo es el encargado de crear la "bola" del Pong.
-	public void crearBola() {
+	private void crearBola() {
 		this.region = new TextureRegion(Pong_V2.MANAGER.get("img/bola.png", Texture.class),(int) this.anchoBola, (int) this.altoBola);
 		
 		super.setHeight(this.altoBola);
 		super.setWidth(this.anchoBola);
-		super.setPosition(Gdx.graphics.getWidth()/2 - anchoBola/2, Gdx.graphics.getHeight()/2 - altoBola/2);
 		
-		this.bola = new BodyDef();
-		this.bola.position.set(getX() + this.anchoBola/2f, getY() + this.altoBola/2f);
-		this.bola.type = BodyType.DynamicBody;
+		Vector2 posicion = new Vector2(Gdx.graphics.getWidth()/2 /* - anchoBola/2*/, Gdx.graphics.getHeight()/2 /*+ this.altoBola/2f*/);
+		Vector2 radio = new Vector2(this.anchoBola/2, this.altoBola/2);
+		int tipoCuerpo = 2;
+		float densidad = 0;
+		float friccion = 0;
+		float rebote = 1;
+		String nombre = "bola";
 		
-		this.cuadrado = new PolygonShape();
-		//Aquí no se refiere al diametro, si no al radio, por lo que dividimos entre dos el alto y el ancho de la imagen.
-		this.cuadrado.setAsBox(this.anchoBola/2, this.altoBola/2);
-		
-		this.fixture = new FixtureDef();
-		this.fixture.shape = cuadrado;
-		
-		this.cuerpo = this.mundo.getMundo().createBody(this.bola);
-		this.cuerpo.createFixture(fixture);
-		
-		cuadrado.dispose();
-	
-
+		this.bola = new Cuerpos();
+		this.mundo = this.bola.crearRectangulo(mundo, posicion, radio, tipoCuerpo, densidad, friccion, rebote, nombre);
 	}
+
 }
